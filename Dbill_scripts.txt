@@ -1,0 +1,46 @@
+create database DBill;
+Use DBill;
+Create table User(user_ID int auto_increment,
+                  token varchar(500),
+                  name varchar(50) NOT NULL,
+                  mailID varchar(50) NOT NULL, 
+                  groupIDs varchar(100),
+                  Created_dt datetime NOT NULL,
+                  PRIMARY KEY (user_ID,token));
+
+ALTER TABLE User AUTO_INCREMENT=1001;
+
+Create table Friends(ID int auto_increment,
+                     friend_ID int NOT NULL,
+                     user_ID int NOT NULL,
+                     Created_dt datetime NOT NULL,
+                     PRIMARY KEY (ID),
+                     FOREIGN KEY (friend_ID) REFERENCES User(user_ID),
+                     FOREIGN KEY (user_ID) REFERENCES User(user_ID));
+
+ALTER TABLE Friends AUTO_INCREMENT=101;
+
+Create table Groups(groupIDs int auto_increment, group_Name varchar(50) NOT NULL, Created_dt datetime NOT NULL, PRIMARY KEY (groupIDs));
+ALTER TABLE Friends AUTO_INCREMENT=10001;
+
+Create table Bill(bill_ID int auto_increment, item_Name varchar(50) NOT NULL, amount int NOT NULL, Created_dt datetime NOT NULL, PRIMARY KEY (bill_ID));
+ALTER TABLE Bill AUTO_INCREMENT=11;
+
+Create table SplitDetails(ID int auto_increment, bill_ID int NOT NULL, paid_By int NOT NULL, Created_dt datetime NOT NULL, PRIMARY KEY (ID), FOREIGN KEY (bill_ID) REFERENCES Bill(bill_ID),
+                     FOREIGN KEY (paid_By) REFERENCES User(user_ID));
+ALTER TABLE SplitDetails AUTO_INCREMENT=1;
+
+Create table SplitIN(ID int auto_increment, bill_ID int NOT NULL, paid_By int NOT NULL, amount int NOT NULL, group_ID int NOT NULL, Created_dt datetime NOT NULL, PRIMARY KEY (ID), FOREIGN KEY (bill_ID) REFERENCES Bill(bill_ID),
+                     FOREIGN KEY (paid_By) REFERENCES User(user_ID), FOREIGN KEY (group_ID) REFERENCES Groups(groupIDs));
+ALTER TABLE SplitIN AUTO_INCREMENT=1;
+
+Create table MonthlyExpense(ID int auto_increment, user_ID int NOT NULL, amount_Ds int NOT NULL, amount_In int NOT NULL, Created_dt datetime NOT NULL, PRIMARY KEY (ID), FOREIGN KEY (user_ID) REFERENCES User(user_ID));
+ALTER TABLE SplitIN AUTO_INCREMENT=1;
+
+
+
+
+                    
+
+
+ 
